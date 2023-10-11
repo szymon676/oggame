@@ -42,6 +42,16 @@ class Entity:
 
 player = Entity(entity_image, screen.get_width() / 2, 0)
 
+
+class Platform:
+    def __init__(self, image, x, y):
+        self.image = image
+        self.rect = self.image.get_rect(topleft=(x, y))
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect)
+
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -54,6 +64,9 @@ while running:
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w] and player.on_ground:
+        player.velocity.y = -15
+        player.on_ground = False
+    if keys[pygame.K_SPACE] and player.on_ground:
         player.velocity.y = -15
         player.on_ground = False
 
